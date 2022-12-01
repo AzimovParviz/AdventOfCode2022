@@ -3,46 +3,27 @@
 #include <string>
 #include <vector>
 
-class Elf
-{
-	public:
-		int calories = 0;
-		int id;
-
-		void addCalories(int foodItem){
-			calories += foodItem;
-		}
-};
-
-bool CompareCalories(const Elf & left, const Elf & right) {
-	return left.calories > right.calories;
-}
-
-std::vector<Elf> getCalories() {
+std::vector<int> getCalories() {
 	std::string input;
 	int i = 0;//will be used for identifcation of elfs
 	std::vector<int> calories;
-	std::vector<Elf> allElfs;
-	Elf elf {0,i};
-	allElfs.push_back(elf);
+	calories.push_back(0);
 	while (std::getline(std::cin, input, '\n')) {
 		if(input.empty()) {
 			i++;
-			allElfs.push_back(
-					{0,i}
-					);
+			calories.push_back(0);
 		}
-		else 
-			allElfs[i].addCalories(std::stoi(input));
-	}	
+		else
+			calories[i] += std::stoi(input);
+	}
 
-	return allElfs;
+	return calories;
 }
 
 int main() {
-	std::vector<Elf> listOfElves = getCalories();
-	std::sort(listOfElves.begin(), listOfElves.end(), CompareCalories);
-	std::cout<<"Most calories: "<<listOfElves[0].calories;
-	std::cout<<"Top 3 calories: "<<listOfElves[0].calories+listOfElves[1].calories+listOfElves[2].calories;
+	std::vector<int> listOfElves = getCalories();
+	std::sort(listOfElves.begin(), listOfElves.end(), std::greater<int>());
+	std::cout<<"Most calories: "<<listOfElves[0];
+	std::cout<<"Top 3 calories: "<<listOfElves[0]+listOfElves[1]+listOfElves[2];
 	return 0;
 }
