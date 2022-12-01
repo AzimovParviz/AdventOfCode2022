@@ -43,5 +43,6 @@ int main() {
 	std::vector<Elf> listOfElves = getCalories();
 	std::sort(listOfElves.begin(), listOfElves.end(), CompareCalories);
 	std::cout<<"Most calories: "<<listOfElves[0].calories;
+	std::cout<<"Top 3 calories: "<<listOfElves[0].calories+listOfElves[1].calories+listOfElves[2].calories;
 	return 0;
 }
