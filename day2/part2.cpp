@@ -15,7 +15,7 @@ char findCorrectChoice(int result, char opponent)
 	if (result  ==  3) return opponent;
 	else if (result == 0) {
 		if (opponent == 65) {
-			return 67;
+			return opponent + 2;
 		}
 		else {
 			return opponent - 1;
@@ -36,35 +36,9 @@ char findCorrectChoice(int result, char opponent)
 
 int calculateTotalScore(std::string input)
 {
-	int totalPoints = 0;
-	char playerChoice;
-	switch (input[2]) {
-		case 'X':
-			totalPoints+=0;
-			break;
-		case 'Y':
-			totalPoints+=3;
-			break;
-		case 'Z':
-			totalPoints+=6;
-			break;
-		default:
-			break;
-	};
-	
-	switch (findCorrectChoice(totalPoints, input[0])) {
-		case 65:
-			totalPoints += 1;
-			break;
-		case 66:
-			totalPoints +=2;
-			break;
-		case 67:
-			totalPoints +=3;
-			break;
-		default:
-			break;
-	}
+	int totalPoints = 0;	
+	totalPoints += (input[2] - (88))*3;
+	totalPoints += findCorrectChoice(totalPoints, input[0]) - 64;
 	return totalPoints;
 }
 

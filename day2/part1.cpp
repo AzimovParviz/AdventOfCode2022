@@ -22,37 +22,9 @@ int calculateTotalScore(std::string input)
 {
 	int totalPoints = 0;
 	char playerChoice;
-	switch (input[2]) {
-		case 'X':
-			totalPoints+=1;
-			playerChoice = input[2];
-			break;
-		case 'Y':
-			totalPoints+=2;
-			playerChoice = input[2];
-			break;
-		case 'Z':
-			totalPoints+=3;
-			playerChoice = input[2];
-			break;
-		default:
-			break;
-	};
-	
-	switch (input[0]) {
-		case 'A':
-			totalPoints += resultOfRound(playerChoice-23, input[0]);
-			break;
-		case 'B':
-			totalPoints += resultOfRound(playerChoice-23, input[0]);
-			break;
-		case 'C':	
-			totalPoints += resultOfRound(playerChoice-23, input[0]);
-			break;
-		default:
-			break;
-	}
-
+	totalPoints += input[2]-87;
+	playerChoice = input[2]-23;
+	totalPoints += resultOfRound(playerChoice, input[0]);
 	return totalPoints;
 }
 
