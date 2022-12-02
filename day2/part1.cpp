@@ -69,12 +69,8 @@ int getPoints()
 	return points;
 }
 
-
-
-
 int main()
 {
-	int points = getPoints();
-	std::cout<<points;
+	std::cout<<getPoints();
 	return 0;
 }
