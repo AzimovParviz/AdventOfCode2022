@@ -6,30 +6,28 @@
 //1 for Rock, 2 for Paper, and 3 for Scissors) plus the score for the outcome of the round (0 if you lost, 3 if the round was a draw, and 6 if you won).
 //
 
-char findCorrectChoice(int result, char a)
+char findCorrectChoice(int result, char opponent)
 {
 	//A beats C
 	//B beats A
 	//C beats B
 	//A = 65, B = 66, C = 67
-	if (result == 3) return a;	
-	else if ((a==65) && (result==0)){
-		return 67;
+	if (result  ==  3) return opponent;
+	else if (result == 0) {
+		if (opponent == 65) {
+			return 67;
+		}
+		else {
+			return opponent - 1;
+		}
 	}
-	else if ((a==65) && (result==6)) {
-		return 66;
-	}
-	else if ((a==66) && (result==0)) {
-		return 65;
-	}
-	else if ((a==67) && (result==0)) {
-		return 66;
-	}
-	else if ((a==66) && (result==6)) {
-		return 67;
-	}
-	else if ((a==67) && (result==6)) {
-		return 65;
+	else if (result == 6) {
+		if (opponent == 67) {
+			return opponent - 2;
+		}
+		else {
+			return opponent + 1;
+		}
 	}
 	else {
 		return 0;
