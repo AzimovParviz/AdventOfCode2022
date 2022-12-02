@@ -12,6 +12,7 @@ char findCorrectChoice(int result, char opponent)
 	//B beats A
 	//C beats B
 	//A = 65, B = 66, C = 67
+	// look at part1.cpp for explanation of maths here
 	if (result  ==  3) return opponent;
 	else if (result == 0) {
 		if (opponent == 65) {
@@ -37,7 +38,9 @@ char findCorrectChoice(int result, char opponent)
 int calculateTotalScore(std::string input)
 {
 	int totalPoints = 0;	
-	totalPoints += (input[2] - (88))*3;
+	totalPoints += (input[2] - (88))*3; // 0 for loss, 3 for draw, 6 for winning
+					    // 88 is X = loss, 89 is Y = (89 -88)*3 = 3 points
+					    // 90 is Z = win, (90-88)*3 = 6 points
 	totalPoints += findCorrectChoice(totalPoints, input[0]) - 64;
 	return totalPoints;
 }
