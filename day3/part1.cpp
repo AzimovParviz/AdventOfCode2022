@@ -39,7 +39,6 @@ int getItems()
 		while(i<firstHalf.length())
 		{
 			cursor = firstHalf[i];	
-			std::cout<<firstHalf<<'\n';
 			if(secondHalf.find_first_of(cursor) != std::string::npos)
 			{
 				//std:cout<<cursor<<'\n';
