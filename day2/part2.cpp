@@ -49,7 +49,6 @@ int getPoints()
 {
 	int points = 0;
 	std::string input;
-	int i = 0;
 	while(std::getline(std::cin, input, '\n'))
 	{			
 		points += calculateTotalScore(input);
