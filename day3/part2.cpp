@@ -34,7 +34,6 @@ int getItems()
 	
 	for (int i = 0; i < rucksacks.size(); i+=3)
 	{
-		std::cout<<rucksacks.size()<<std::endl;
 		for (int j = 0; j<rucksacks[i].length();j++)
 		{
 			cursor = rucksacks[i][j];

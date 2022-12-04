@@ -33,7 +33,6 @@ int getItems()
 	{		
 		firstHalf = input.substr(0, input.length()/2);
 		secondHalf = input.substr(input.length()/2, input.length());
-		//std:cout<<firstHalf<<' '<<secondHalf<<'\n';
 		int finalIndex = firstHalf.length();
 		int i = 0;
 		while(i<firstHalf.length())
@@ -41,10 +40,8 @@ int getItems()
 			cursor = firstHalf[i];	
 			if(secondHalf.find_first_of(cursor) != std::string::npos)
 			{
-				//std:cout<<cursor<<'\n';
 				firstHalf.erase(std::remove(firstHalf.begin(), firstHalf.end(), cursor), firstHalf.end());
 				priorities += calculatePriorities(cursor);		
-				////std:cout<<priorities<<'\n';
 			}
 			i++;
 		}
