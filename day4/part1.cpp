@@ -1,13 +1,11 @@
 #include <algorithm>
 #include <iostream>
 #include <string>
-#include <vector>
 
 
 int getPoints() 
 {
 	std::string input;
-	std::vector<std::string> assignments;
 	int containedCount;
 	std::string firstAssignment;
 	std::string firstBegin;
@@ -24,10 +22,6 @@ int getPoints()
 		secondBegin = secondAssignment.substr(0, secondAssignment.find("-"));
 		secondEnd = secondAssignment.substr(secondAssignment.find("-")+1, secondAssignment.length());
 		//if beginning is less than the second's and the end is bigger than the second's
-		std::cout<<firstAssignment<<" "<<secondAssignment<<'\n';
-//		std::cout<<firstBegin<<' '<<secondBegin<<'\n';
-//		std::cout<<firstEnd<<' '<<secondEnd<<'\n';
-	
 		if(
 		  ((std::stoi(firstBegin) <= std::stoi(secondBegin))
 		  && (std::stoi(firstEnd) >= std::stoi(secondEnd))) 
@@ -40,7 +34,6 @@ int getPoints()
 		  )
 		  )
 		{
-			std::cout<<secondAssignment<<" is fully contained by "<<firstAssignment<<'\n';
 			containedCount++;
 		}
 
