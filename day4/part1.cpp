@@ -7,12 +7,7 @@ int getPoints()
 {
 	std::string input;
 	int containedCount;
-	std::string firstAssignment;
-	std::string firstBegin;
-	std::string firstEnd;
-	std::string secondAssignment;
-	std::string secondBegin;
-	std::string secondEnd;
+	std::string firstAssignment, firstBegin, firstEnd, secondAssignment, secondBegin, secondEnd;
 	while(std::getline(std::cin, input, '\n'))
 	{			
 		firstAssignment = input.substr(0, input.find(","));
