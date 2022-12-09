@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cstdlib>
 #include <iostream>
 #include <sstream>
 #include <string>
@@ -15,44 +16,56 @@ std::size_t replace_all(std::string& inout, std::string_view what, std::string_v
     return count;
 }
 
-std::vector<std::string> formatCrates(std::vector<std::string> crates, int numberOfStacks, int maxHeight)
+std::vector<std::vector<char>> formatCrates(std::vector<std::vector<char>> crates, int numberOfStacks, int maxHeight)
 {
-	std::vector<std::string> formattedCrates(numberOfStacks);
-	for (int i = 0; i<numberOfStacks*2; i+=2)
+	std::vector<std::vector<char>> formattedCrates;
+	for (int i = 0; i<numberOfStacks; i++)
 	{
-		for (int j = 0; j<maxHeight; j++)
+		for (int j = 0; j<maxHeight*maxHeight; j+=2)
 		{	
-			formattedCrates[i] += crates[j][i];
+			if(crates[i][j] > '0')
+				formattedCrates[i].push_back(crates[i][j]);
+			else
+				formattedCrates[i].push_back(' ');
+			std::cout<<"formattedCrates: "<<formattedCrates[i][j]<<'\n';	
 		}
-		std::cout<<"formattedCrates: "<<formattedCrates[i]<<'\n';
 	}
-
 	return formattedCrates;
 }
 
-std::string executeInstructions(std::vector<std::string> crates, int numberOfStacks, std::vector<std::string> instructions)
+std::vector<std::vector<char>> executeInstructions(std::vector<std::vector<char>> crates, int numberOfStacks, std::vector<std::string> instructions)
 {
 	int howMany,from,to;
 	char _;
 	for(int i = 0; i<instructions.size();i++)
 	{
+		std::reverse(crates[i].begin(), crates[i].end());
 		std::istringstream singleInstruction(instructions[i]);
 		singleInstruction>>howMany>>_>>from>>_>>to;
+		std::cout<<howMany<<from<<to;
 		for (int j = 0; j < howMany;j++)
-		{
-			
+		{	
+			crates[to-1].pop_back();
+			crates[to-1].push_back(crates[from-1][j]);
+			std::cout<<"from: "<<crates[from-1][j]<<" to: "<<crates[to-1][j]<<'\n';
+			crates[from-1].pop_back();
 		}
+		
+		std::cout<<"ended up as: "<<std::string (crates[i].begin(), crates[i].end())<<'\n';
 	}
-	return crates[0];
+
+	return crates;
 }
 
-std::vector<std::string> getCrates()
+std::vector<std::vector<char>> getCrates()
 {
 	std::vector<std::string> crates;
-	char singleCrate;
+	std::vector<std::vector<char>> formattedCrates(3);
+	char singleCrate[3];
 	std::string input;
 	int numberOfStacks = 0;
 	std::vector<std::string> instructions;
+	char _;
 	int iter = 0; //to mark last row of crates;
 	while(std::getline(std::cin, input, '\n'))
 	{	
@@ -61,40 +74,52 @@ std::vector<std::string> getCrates()
 			replace_all(input, "[", "");
 			replace_all(input, "]", "");
 			replace_all(input, "    ", "  ");
-			//replace_all(input, " ", "0");
-			//replace_all(input, "    ", "  ");
-			std::cout<<input<<'\n';
-			crates.push_back(input);
+			replace_all(input, "  ", "00");
+			replace_all(input, " ", "0");
+			//std::cout<<input<<'\n';
+			//crates.push_back(input);
+			std::istringstream sstream(input);
+			sstream>>singleCrate[0]>>_>>singleCrate[1]>>_>>singleCrate[2];
+			std::cout<<singleCrate[0]<<singleCrate[1]<<singleCrate[2]<<'\n';
+			for (int i = 0; i<3; i++)
+			{
+				if(singleCrate[i] > '0')
+					formattedCrates[i].push_back(singleCrate[i]);
+				else
+					break;			}
 			iter++; //means we are still on crates, marking that as a last row
 			     //if there are no more crates, the iter will keep the last row 
 		}
-		if(input.find("   ") != std::string::npos)
+		else if(input.find("   ") != std::string::npos)
 		{	
 			replace_all(input, " ", "");
 			numberOfStacks = input[input.length()-1] - '0';
 			std::cout<<numberOfStacks<<'\n';
 
 		}
-		if(input[0] == 109)
+		else if(input[0] == 109)
 		{	
 			replace_all(input, "move", "");
 			replace_all(input, "from", "-");
 			replace_all(input, "to", "-");
 			replace_all(input, " ", "");
 			instructions.push_back(input);
-			//std::cout<<"instructions "+input<<'\n';
 		}	
 	}
 
-	//std::cout<<"wow ok "<<formattedCrates[1]<<'\n';
 	std::cout<<"maxHeight: "<<iter<<'\n';
-	std::vector<std::string> formattedCrates = formatCrates(crates, numberOfStacks, iter);
-	return formattedCrates;
-	return crates;
+	//std::vector<std::vector<char>> newCrates = formatCrates(formattedCrates, numberOfStacks, iter);
+	//return formattedCrates;
+
+	return executeInstructions(formattedCrates, numberOfStacks, instructions);
 }
 
 int main()
 {
-	std::cout<<getCrates()[0];
+	std::vector<std::vector<char>> crates = getCrates();
+	for (int i = 0; i < 3; i++)
+	{
+		std::cout<<"result is: "<<crates[i].back()<<'\n';
+	}
 	return 0;
 }
