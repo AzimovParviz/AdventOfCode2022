@@ -66,7 +66,7 @@ std::vector<std::vector<char>> executeInstructions(int numberOfStacks, std::vect
 	{
 		std::istringstream singleInstruction(instructions[i]);
 		singleInstruction>>howMany>>_>>from>>_>>to;
-		std::cout<<howMany<<from<<to;
+		//std::cout<<howMany<<"-"<<from<<"-"<<to;
 		for (int j = 0; j < howMany;j++)
 		{	
 			//std::cout<<"from: "<<crates[from-1][j]<<" to: "<<crates[to-1][j]<<'\n';
@@ -74,7 +74,7 @@ std::vector<std::vector<char>> executeInstructions(int numberOfStacks, std::vect
 			crates[from-1].pop_back();
 		}
 		
-		std::cout<<"ended up as: "<<std::string (crates[i].begin(), crates[i].end())<<'\n';
+		//std::cout<<"ended up as: "<<std::string (crates[i].begin(), crates[i].end())<<'\n';
 	}
 
 	return crates;
@@ -97,7 +97,7 @@ std::vector<std::vector<char>> getCrates()
 			replace_all(input, "to", "-");
 			replace_all(input, " ", "");
 			instructions.push_back(input);
-            std::cout<<input<<'\n';
+            //std::cout<<input<<'\n';
 		}	
 	}
 	
